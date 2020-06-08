@@ -258,9 +258,19 @@ class CustomTable extends Component<IProps, IState> {
       direction = "des";
     }
 
+    
+
     sortableData.sort((a: any, b: any): number => {
       let first = a[headerName];
       let second = b[headerName];
+
+      if (!first) {
+        if (second) return direction === "asc" ? -1 : 1;
+        return 0;
+      } else if (!second) {
+        if (first) return direction === "asc" ? 1 : -1;
+        return 0;
+      }
 
       if (!isNaN(first)) first = +first;
       if (!isNaN(second)) second = +second;
@@ -281,6 +291,7 @@ class CustomTable extends Component<IProps, IState> {
       this.setState({ animateRows: false });
     }, 2000);
   };
+
 
   toggleSortingIcon = (columnName: string): JSX.Element | undefined => {
     const { sortConfig } = this.state;
