@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, createRef, RefObject } from "react";
 import styled, { keyframes, css } from "styled-components";
 import fakeDataBase from "../fakeData";
 
@@ -153,8 +153,10 @@ const TableCell = styled.td<CellProps>`
 `;
 
 class CustomTable extends Component<IProps, IState> {
+  private tableElement:  RefObject<HTMLTableElement>;
   constructor(props: IProps) {
     super(props);
+    this.tableElement = createRef();
     this.state = {
       data: null,
       columns: null,
@@ -208,10 +210,11 @@ class CustomTable extends Component<IProps, IState> {
   handleResize = (): void => {
     const { boundLastColumn } = this.state;
     const { bound } = boundLastColumn;
-    const tableElement = document.getElementById("table");
-    if (!tableElement) return;
-    const tableBoundaries = tableElement.getBoundingClientRect();
+    
+    if (!this.tableElement || !this.tableElement.current) return;
 
+      const tableBoundaries = this.tableElement.current.getBoundingClientRect();
+    
     if (
       (tableBoundaries.right > window.innerWidth && !bound) ||
       (tableBoundaries.right < window.innerWidth && bound)
@@ -357,7 +360,7 @@ class CustomTable extends Component<IProps, IState> {
   render() {
     return (
       <TableWrapper>
-        <Table id="table">
+        <Table ref={this.tableElement}>
           <TableHead>
             <TableHeaders>{this.getHeaders()}</TableHeaders>
           </TableHead>
