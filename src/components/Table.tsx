@@ -34,15 +34,25 @@ interface IState {
   columns: IColumn[] | null;
 }
 
+const arrowIconColor = "#d8664d";
+const tableMainBackgroundColor = "#01142f";
+const tableMainFontColor = "#d5d5d5";
+const tableSecondBackgroundColor = "#052555";
+const boundedCallsBackgroundColor = "#e5f0ff"
+const boundedColumnFontColor = "#2f3640"
+const boundedHeaderFontColor = "#e6e7e8";
+const boundedHeaderHooverBackgroundColor = "#e6e7e840";
+
+
 const bounded = css`
   position: sticky;
   right: 0px;
-  background-color: #e5f0ff;
-  color: #2f3640;
+  background-color: ${boundedCallsBackgroundColor};
+  color: ${boundedColumnFontColor};
 
   &.column-header {
     button {
-      color: #01142f;
+      color: ${tableMainBackgroundColor}};
     }
   }
 `;
@@ -66,11 +76,11 @@ const ArrowIcon = styled.div`
 `;
 
 const ArrowUp = styled(ArrowIcon)`
-  border-bottom: 5px solid #d8664d;
+  border-bottom: 5px solid ${arrowIconColor};
 `;
 
 const ArrowDown = styled(ArrowIcon)`
-  border-top: 5px solid #d8664d;
+  border-top: 5px solid ${arrowIconColor};
 `;
 
 const TableWrapper = styled.div`
@@ -89,13 +99,13 @@ const TableHead = styled.thead``;
 const TableHeaders = styled.tr`
   th:last-of-type {
     button:hover {
-      background-color: #01142f20;
+      background-color: ${tableMainBackgroundColor}20;
     }
   }
 `;
 
 const ColumnHeader = styled.th<CellProps>`
-  background-color: #01142f;
+  background-color: ${tableMainBackgroundColor};
   padding: 0;
   width: ${({ width }) => `${width}px`};
   &.bounded {
@@ -114,24 +124,24 @@ const ColumnHeaderButton = styled.button`
   margin: 0;
   padding: 0;
   background-color: transparent;
-  color: #e6e7e8;
+  color: ${boundedHeaderFontColor};
   text-transform: uppercase;
   cursor: pointer;
 
   &:hover {
-    background-color: #e6e7e840;
+    background-color: ${boundedHeaderHooverBackgroundColor};
   }
 `;
 
 const TableBody = styled.tbody`
   padding: 10px;
-  color: #d5d5d5;
+  color: ${tableMainFontColor};
   tr:nth-child(odd) {
-    background-color: #052555;
+    background-color: ${tableSecondBackgroundColor};
   }
 
   tr:nth-child(even) {
-    background-color: #01142f;
+    background-color: ${tableMainBackgroundColor}};
   }
 `;
 
